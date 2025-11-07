@@ -11,17 +11,32 @@
 
 ## Example Single-Trade Day Trading Plan
 1. Char and Market Setup
-   - Use a liquid and volatile instrument (ex, avuv, vti, qqq )
-   - Select a 5-munite candlestick chart for better intraday resolution. 
+    - Use a liquid and volatile instrument (ex, avuv, vti, qqq )
+    - Select a 5-munite candlestick chart for better intraday resolution. 
 2. Key Indicators
-   - Use two indicators for simplicity:
-       - 21-period Exponential Moving Average (EMA)
-       - Relative Strength Index (RSI), set to 14-period.
+    - Use two indicators for simplicity:
+        - 21-period Exponential Moving Average (EMA)
+        - Relative Strength Index (RSI), set to 14-period.
 3. Defining Trend
-    - For a LONG Trade:
-         - Wait for price to pull back toward the 21 EMA but not close below it.
-         - Enter when a bullish candlestick closes above the 21 EMA and RSI is above 50 (showing upward momentum)
-5. Setup and Entry Criteria
-6. Stop-Loss and Take-Profit
-7. Simple Execution Checklist
-8. Record-Keeping
+	- If price is above the 21 EMA, look only for long (buy) trades.
+	- If price is below the 21 EMA, look only for short (sell) trades. 
+    
+4. Setup and Entry Criteria
+	- For a LONG Trade:
+        - Wait for price to pull back toward the 21 EMA but not close below it.
+        - Enter when a bullish candlestick closes above the 21 EMA and RSI is above 50 (showing upward momentum)
+	- For a SHORT Trade: 
+		- Wait fr price to pull back up toward the 21 EMA but not close above it. 
+		- Enter when a bearish candlestick closes below the 21 EMA and RSI is below 50. 
+5. Stop-Loss and Take-Profit
+	- Place a stop-loss 0.5% below your entry (long) or .5% above (short), or at the most recent swing low/high.
+	- Set a fixed take-profit at 1% or 2% above (long) or 0.5 above (short), or below (short) your entry.
+6. Simple Execution Checklist
+	- Confirm trend direction (relative to 21 EMA).
+	- Confirm pullback near the EMA. 
+	- Wait for confirmation (RSI and candle close).
+	- Enter trade and set both stop-loss and take-profit orders immediatly.
+	- No additional trades for the day -- even if you miss the chance. 
+7. Record-Keeping
+	- Log each trade outcome, noting if you stuck to your rules.
+	- Review weekly for adherence to the plan, not just profit/loss. 
