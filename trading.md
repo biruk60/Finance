@@ -42,16 +42,16 @@
 	- Review weekly for adherence to the plan, not just profit/loss. 
 
 ## **Example (LONG) Trade Walkthrough**
-	- Instrument: VOO ETF 5-min chart
-	- Price is above 21 EMA; trend is up.
-	- Price pulls back, touches 21 EMA, forms bullish engulfing candle that closes above EMA.
-	- RSI is at 53 (above 50) at candle close.
-	- Enter long at $100.00
-	- Set stop-loss: $99.50 (.5% risk).
-	- Set take-profit: $101.00 (1% gain).
-	- Trade triggers and closes at stop or traget: You don't enter another trade that day, regardless of the outcome.
+- Instrument: VOO ETF 5-min chart
+- Price is above 21 EMA; trend is up.
+- Price pulls back, touches 21 EMA, forms bullish engulfing candle that closes above EMA.
+- RSI is at 53 (above 50) at candle close.
+- Enter long at $100.00
+- Set stop-loss: $99.50 (.5% risk).
+- Set take-profit: $101.00 (1% gain).
+- Trade triggers and closes at stop or traget: You don't enter another trade that day, regardless of the outcome.
 
 ## **Why this works**
-	- The approach is simple, disciplined, and minimizes noise/trading fatigue. 
-	- You leverage trend-following for higher probability moves and use clearly defined indicators for timing. 
-	- It is easily testable, repeatable, and can be adapted to your preferred instruments or indicators. 
+- The approach is simple, disciplined, and minimizes noise/trading fatigue. 
+- You leverage trend-following for higher probability moves and use clearly defined indicators for timing. 
+- It is easily testable, repeatable, and can be adapted to your preferred instruments or indicators. 
