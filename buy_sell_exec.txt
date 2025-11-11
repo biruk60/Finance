@@ -1,0 +1,20 @@
+input supportPrice = 100.0;
+input resistancePrice = 105.0;
+input buyOffsetPercent = 0.03;
+input sellOffsetPercent = 0.03;
+input stopLossPercent = 0.2;
+
+def buyPrice = supportPrice * (1 - buyOffsetPercent / 100);
+def sellPrice = resistancePrice * (1 + sellOffsetPercent / 100);
+
+def stopLossLong = buyPrice * (1 - stopLossPercent / 100);
+def stopLossShort = sellPrice * (1 + stopLossPercent / 100);
+
+// Trailing stop tracking can be done with recursive logic (example simplified)
+rec highestSinceEntry = if close > highestSinceEntry[1] then close else highestSinceEntry[1];
+def trailingStop = highestSinceEntry * (1 - stopLossPercent / 100);
+
+plot BuyLevel = buyPrice;
+plot SellLevel = sellPrice;
+plot StopLossLevel = if close >= buyPrice then stopLossLong else if close <= sellPrice then stopLossShort else Double.NaN;
+plot TrailingStopLevel = trailingStop;
