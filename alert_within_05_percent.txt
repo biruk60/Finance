@@ -1,0 +1,24 @@
+input targetPrice = 100.0;  // Set your target price here
+input tolerancePercent = 0.05;  // 0.05% tolerance
+
+def lowerBound = targetPrice * (1 - tolerancePercent / 100);
+def upperBound = targetPrice * (1 + tolerancePercent / 100);
+
+def inRange = close >= lowerBound and close <= upperBound;
+
+Alert(inRange, "Price is within ±0.05% of target!", Alert.BAR, Sound.Ding);
+
+
+def check_price_alert(current_price, target_price, tolerance_percent=0.05):
+    lower_bound = target_price * (1 - tolerance_percent / 100)
+    upper_bound = target_price * (1 + tolerance_percent / 100)
+
+    if lower_bound <= current_price <= upper_bound:
+        print(f"Price {current_price} is within ±{tolerance_percent}% of target {target_price}.")
+
+# Example usage
+current_market_price = 100.03  # This would dynamically come from your data feed
+target_price = 100.00
+
+check_price_alert(current_market_price, target_price)
+
