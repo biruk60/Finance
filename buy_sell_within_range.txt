@@ -6,13 +6,15 @@ input profitPercent = 0.6; //0.6% profit margin
 
 def lowerBound = levelPrice * (1 - tolerancePercent / 100);
 def upperBound = levelPrice * (1 + tolerancePercent / 100);
-def longTargetPrice = levelPrice * (1 + profitPercent/100);
-def shortTargetPrice = levelPrice * (1 - profitPercent/100);
+
 
 def inRange = close >= lowerBound and close <= upperBound;
 
 def longEntryPrice = close;
 def shortEntryPrice = close;
+
+def longTargetPrice = longEntryPrice * (1 + profitPercent/100);
+def shortTargetPrice = shortEntryPrice * (1 - profitPercent/100);
 
 def longStopPrice = longEntryPrice * (1 - stopLossPercent / 100);
 def shortStopPrice = shortEntryPrice * (1 + stopLossPercent / 100);
@@ -24,21 +26,10 @@ def enterShort = inRange;
 # Place long order with stop loss
 AddOrder(OrderType.BUY_TO_OPEN, enterLong, open, 100, Color.GREEN, Color.GREEN, "Long Entry");
 AddOrder(OrderType.SELL_TO_CLOSE, close <= longStopPrice, open, 100, Color.RED, Color.RED, "Long Stop Loss");
-def trailPercent = 2.0;  # 2% trailing stop
-def targetPrice = longTargetPrice;  # your target price variable
+AddOrder(OrderType.SELL_TO_CLOSE, close >= longTargetPrice, open, 100, Color.GREEN, Color.GREEN, "Long Traget Price hit.");
 
-# Track the highest high since entry
-rec highSinceEntry = if enterLong then high else Max(high, highSinceEntry[1]);
-
-# Calculate trailing stop 2% below the highest high
-def trailingStopPrice = highSinceEntry * (1 - trailPercent / 100);
-
-# Ensure trailing stop does not go below target price
-def adjustedTrailingStop = Max(trailingStopPrice, targetPrice);
-
-# Trigger sell if close is <= adjusted trailing stop
-AddOrder(OrderType.SELL_TO_CLOSE, close <= adjustedTrailingStop, open, 100, Color.ORANGE, Color.ORANGE, "Trailing Stop or Target Floor");
 
 # Place short order with stop loss
 AddOrder(OrderType.SELL_TO_OPEN, enterShort, open, 100, Color.ORANGE, Color.ORANGE, "Short Entry");
-AddOrder(OrderType.BUY_TO_CLOSE, close >= shortStopPrice, open, 100, Color.MAGENTA, Color.MAGENTA, "Short Stop Loss");
+AddOrder(OrderType.BUY_TO_CLOSE, close >= shortStopPrice, open, 100, Color.RED, Color.RED, "Short Stop Loss");
+AddOrder(OrderType.BUY_TO_CLOSE, close <= shortTargetPrice, open, 100, Color.GREEN, Color.GREEN, "Short Traget Price hit");
