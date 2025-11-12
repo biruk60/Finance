@@ -1,7 +1,7 @@
-input levelPrice = 100.0;  // Set your target price here
-input tolerancePercent = 0.1;  // 0.1% tolerance
-input stopLossPercent = 0.1;  // 0.1% stop loss
-input profitPercent = 0.6; //0.6% profit margin
+input levelPrice = 623.23;  # Set your target price here
+input tolerancePercent = 0.1;  # 0.1% tolerance
+input stopLossPercent = 0.1;  # 0.1% stop loss
+input profitPercent = 0.6; #0.6% profit margin
 
 
 def lowerBound = levelPrice * (1 - tolerancePercent / 100);
@@ -12,6 +12,7 @@ def inRange = close >= lowerBound and close <= upperBound;
 
 def longEntryPrice = close;
 def shortEntryPrice = close;
+ 
 
 def longTargetPrice = longEntryPrice * (1 + profitPercent/100);
 def shortTargetPrice = shortEntryPrice * (1 - profitPercent/100);
@@ -20,16 +21,18 @@ def longStopPrice = longEntryPrice * (1 - stopLossPercent / 100);
 def shortStopPrice = shortEntryPrice * (1 + stopLossPercent / 100);
 
 # Entry conditions
-def enterLong = inRange;
-def enterShort = inRange;
+def enterLong = inRange and rsi() < 35;
+def enterShort = inRange and rsi() > 65;
 
-# Place long order with stop loss
-AddOrder(OrderType.BUY_TO_OPEN, enterLong, open, 100, Color.GREEN, Color.GREEN, "Long Entry");
-AddOrder(OrderType.SELL_TO_CLOSE, close <= longStopPrice, open, 100, Color.RED, Color.RED, "Long Stop Loss");
-AddOrder(OrderType.SELL_TO_CLOSE, close >= longTargetPrice, open, 100, Color.GREEN, Color.GREEN, "Long Traget Price hit.");
+# Place long order with stop loss and traget profitLossMode.COST_BASIS price 
+
+AddOrder(OrderType.BUY_TO_OPEN, enterLong, open, 50, Color.GREEN, Color.GREEN, "Long Entry");
+AddOrder(OrderType.SELL_TO_CLOSE, close <= longStopPrice, open, 50, Color.RED, Color.RED, "Long Stop Loss");
+AddOrder(OrderType.SELL_TO_CLOSE, close >= longTargetPrice, open, 50, Color.GREEN, Color.GREEN, "Long Traget Price hit.");
 
 
-# Place short order with stop loss
-AddOrder(OrderType.SELL_TO_OPEN, enterShort, open, 100, Color.ORANGE, Color.ORANGE, "Short Entry");
-AddOrder(OrderType.BUY_TO_CLOSE, close >= shortStopPrice, open, 100, Color.RED, Color.RED, "Short Stop Loss");
-AddOrder(OrderType.BUY_TO_CLOSE, close <= shortTargetPrice, open, 100, Color.GREEN, Color.GREEN, "Short Traget Price hit");
+# Place short order with stop loss and traget profitLossMode.COST_BASIS price 
+
+AddOrder(OrderType.SELL_TO_OPEN, enterShort, open, 50, Color.ORANGE, Color.ORANGE, "Short Entry");
+AddOrder(OrderType.BUY_TO_CLOSE, close >= shortStopPrice, open, 50, Color.RED, Color.RED, "Short Stop Loss");
+AddOrder(OrderType.BUY_TO_CLOSE, close <= shortTargetPrice, open, 50, Color.GREEN, Color.GREEN, "Short Traget Price hit");
