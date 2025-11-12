@@ -1,0 +1,24 @@
+input levelPrice = 623.23;  # Set your target price here
+input tolerancePercent = 0.1;  # 0.1% tolerance
+input stopLossPercent = 0.1;  # 0.1% stop loss
+input profitPercent = 0.6; #0.6% profit margin
+
+
+def lowerBound = levelPrice * (1 - tolerancePercent / 100);
+def upperBound = levelPrice * (1 + tolerancePercent / 100);
+
+
+def inRange = close >= lowerBound and close <= upperBound;
+
+
+def shortEntryPrice = close;
+def shortTargetPrice = shortEntryPrice * (1 - profitPercent/100);
+def shortStopPrice = shortEntryPrice * (1 + stopLossPercent / 100);
+
+def enterShort = inRange;
+
+# Place short order with stop loss and traget profitL price 
+
+AddOrder(OrderType.SELL_TO_OPEN, enterShort, open, 50, Color.ORANGE, Color.ORANGE, "Short Entry");
+AddOrder(OrderType.BUY_TO_CLOSE, close >= shortStopPrice, open, 50, Color.RED, Color.RED, "Short Stop Loss");
+AddOrder(OrderType.BUY_TO_CLOSE, close <= shortTargetPrice, open, 50, Color.GREEN, Color.GREEN, "Short Traget Price hit");
