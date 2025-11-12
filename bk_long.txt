@@ -1,3 +1,4 @@
+input positionSize = 10000;
 input levelPrice = 623.23;  # Set your target price here
 input tolerancePercent = 0.1;  # 0.1% tolerance
 input stopLossPercent = 0.1;  # 0.1% stop loss
@@ -16,6 +17,6 @@ def longStopPrice = longEntryPrice * (1 - stopLossPercent / 100);
 def enterLong = inRange;
 # Place long order with stop loss and traget  price 
 
-AddOrder(OrderType.BUY_TO_OPEN, enterLong, open, 50, Color.GREEN, Color.GREEN, "Long Entry");
+AddOrder(OrderType.BUY_TO_OPEN, enterLong, open,50 , Color.GREEN, Color.GREEN, "Long Entry");
 AddOrder(OrderType.SELL_TO_CLOSE, close <= longStopPrice, open, 50, Color.RED, Color.RED, "Long Stop Loss");
 AddOrder(OrderType.SELL_TO_CLOSE, close >= longTargetPrice, open, 50, Color.GREEN, Color.GREEN, "Long Traget Price hit.");
